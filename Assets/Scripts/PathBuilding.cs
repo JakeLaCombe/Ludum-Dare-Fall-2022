@@ -9,26 +9,52 @@ public class PathBuilding : MonoBehaviour
     public Tilemap possiblePath;
     public Tilemap playerPath;
     public TileBase basePathTile;
-
     public IInputable playerInput;
-
     public Vector3Int currentLocation;
+    private List<AStarNode> newPlayerPath;
+    private LevelState lastState;
 
     void Start()
     {
         playerInput = GetComponent<IInputable>();
 
-        GameObject startingPoint = GameObject.Find("StartingPoint");
-        playerPath.SetTile(Vector3Int.FloorToInt(startingPoint.transform.position), basePathTile);
+        GameObject startingPoint = GameObject.Find("Player");
+        Vector3Int tilePosition = Vector3Int.FloorToInt(startingPoint.transform.position);
+
         currentLocation = Vector3Int.FloorToInt(playerPath.WorldToCell(startingPoint.transform.position));
+
+        newPlayerPath = new List<AStarNode>();
+        newPlayerPath.Add(new AStarNode(false, tilePosition.x, tilePosition.y));
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (LevelManager.instance.currentState == LevelState.PLANNING)
+        {
+            Debug.Log("Planning");
+            PlayerInput();
+        }
+
+        if (lastState == LevelState.PLANNING && LevelManager.instance.currentState != lastState)
+        {
+            TransferPathToPlayer();
+        }
+
+        if (lastState == LevelState.ACTIVE && LevelManager.instance.currentState != lastState)
+        {
+            ResetPlayer();
+        }
+
+        lastState = LevelManager.instance.currentState;
+
+    }
+
+    public void PlayerInput()
+    {
         bool updateTiles = true;
         Vector3Int nextLocation = new Vector3Int(currentLocation.x, currentLocation.y, currentLocation.z);
-
+        
         if (playerInput.Left())
         {
             nextLocation.x -= 1;
@@ -53,7 +79,38 @@ public class PathBuilding : MonoBehaviour
         if (updateTiles && possiblePath.GetTile(nextLocation) != null && playerPath.GetTile(nextLocation) != basePathTile)
         {         
             currentLocation = nextLocation;
+            newPlayerPath.Add(new AStarNode(false, nextLocation.x, nextLocation.y));
             playerPath.SetTile(currentLocation, basePathTile);
+        }
+    }
+
+    public void TransferPathToPlayer()
+    {
+        GameObject playerObject = GameObject.Find("Player");
+
+        if (playerObject != null)
+        {
+            Player player = playerObject.GetComponent<Player>();
+            player.SetTravelingPath(newPlayerPath);
+            newPlayerPath = new List<AStarNode>();
+
+            playerPath.ClearAllTiles();
+        }
+    }
+
+    public void ResetPlayer()
+    {
+        GameObject playerObject = GameObject.Find("Player");
+
+        if (playerObject != null)
+        {
+            Player player = playerObject.GetComponent<Player>();
+
+            player.ResetMovement();
+
+            Vector3Int tilePosition = Vector3Int.FloorToInt(playerObject.transform.position);
+            playerPath.SetTile(Vector3Int.FloorToInt(playerObject.transform.position), basePathTile);
+            currentLocation = Vector3Int.FloorToInt(playerPath.WorldToCell(playerObject.transform.position));
         }
     }
 }
