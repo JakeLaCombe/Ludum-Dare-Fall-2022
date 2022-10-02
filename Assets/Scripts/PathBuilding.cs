@@ -45,6 +45,11 @@ public class PathBuilding : MonoBehaviour
             ResetPlayer();
         }
 
+        if (lastState == LevelState.OBSERVING && LevelManager.instance.currentState != lastState)
+        {
+            playerPath.SetTile(currentLocation, basePathTile);
+        }
+
         lastState = LevelManager.instance.currentState;
 
     }
@@ -106,9 +111,6 @@ public class PathBuilding : MonoBehaviour
             Player player = playerObject.GetComponent<Player>();
 
             player.ResetMovement();
-
-            Vector3Int tilePosition = Vector3Int.FloorToInt(playerObject.transform.position);
-            playerPath.SetTile(Vector3Int.FloorToInt(playerObject.transform.position), basePathTile);
             currentLocation = Vector3Int.FloorToInt(playerPath.WorldToCell(playerObject.transform.position));
         }
     }

@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour
     public StateMachine stateMachine;
     public Vector3 patrolDestination;
     public EnemyMove enemyMoveState;
+    public EnemyPauseState enemyPauseState;
     public Vector3 startingDirection = new Vector3(1.0f, 1.0f, 1.0f);
 
     public Vector3 patrolDestinationStandingDirection = new Vector3(1.0f, 1.0f, 1.0f);
@@ -17,13 +18,32 @@ public class Enemy : MonoBehaviour
     {
         stateMachine = new StateMachine();
         enemyMoveState = new EnemyMove(this, patrolType, patrolDestination, startingDirection, patrolDestinationStandingDirection);
+        enemyPauseState = new EnemyPauseState(this);
+
         stateMachine.ChangeState(enemyMoveState);
     }
 
     // Update is called once per frame
     void Update()
     {
-        stateMachine.currentState.Execute();
+        if (LevelManager.instance != null)
+        {
+            UpdateState(LevelManager.instance);
+            stateMachine.currentState.Execute();
+        }
+    }
+
+    void UpdateState(LevelManager levelManager)
+    {
+        if (levelManager.currentState == LevelState.ACTIVE || levelManager.currentState == LevelState.OBSERVING)
+        {
+            stateMachine.ChangeState(enemyMoveState);
+        }
+
+        if (levelManager.currentState == LevelState.PLANNING)
+        {
+            stateMachine.ChangeState(enemyPauseState);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)

@@ -6,8 +6,10 @@ public class StateMachine
         if (currentState != null)
             currentState.Exit();
 
+        if (currentState != newState)
+            newState.Enter();
+
         currentState = newState;
-        currentState.Enter();
     }
 
     public void Update()

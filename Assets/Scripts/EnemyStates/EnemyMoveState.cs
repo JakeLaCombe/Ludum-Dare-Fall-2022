@@ -53,16 +53,19 @@ public class EnemyMove : IState
         this.originalPosition = enemy.transform.position;
         this.startingDirection = startingDirection;
         this.patrolDestinationStandingDirection = patrolDestinationStandingDirection;
-    }
-    public void Enter()
-    {
+
+        currentDestination = TargetDestination.ORIGINAL_LOCATION;
         level = GameObject.Find("Level");
         levelPath = level.GetComponentInChildren<PathFinding>();
         animator = enemy.GetComponent<Animator>();
         travelingPath = new List<AStarNode>();
-        currentDestination = TargetDestination.ORIGINAL_LOCATION;
         DetermineAnimation(Vector3.zero, startingDirection);
     }
+    public void Enter()
+    {
+
+    }
+
     public void Execute()
     {
         // if (currentPatrolType != PatrolTypes.STANDING)
@@ -254,6 +257,6 @@ public class EnemyMove : IState
 
     public void OnTriggerEnter2D(Collider2D collider)
     {
-        
+
     }
 }

@@ -108,18 +108,6 @@ public class PlayerMoveState : IState
             DetermineAnimation(player.transform.position, nextPosition);
             animator.SetBool("isRunning", true);
         }
-        // else if (currentDestination == TargetDestination.ORIGINAL_LOCATION)
-        // {
-        //     speed = 1.0f;
-        //     currentDestination = TargetDestination.PATROL_DESTINATION;
-        //     animator.SetBool("isRunning", false);
-        // }
-        // else if (currentDestination == TargetDestination.PATROL_DESTINATION)
-        // {
-        //     speed = 1.0f;
-        //     currentDestination = TargetDestination.ORIGINAL_LOCATION;
-        //     animator.SetBool("isRunning", false);
-        // }
         else
         {
             Freeze();

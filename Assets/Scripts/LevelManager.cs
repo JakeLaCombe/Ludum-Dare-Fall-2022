@@ -6,7 +6,7 @@ public class LevelManager : MonoBehaviour
 {
     public static LevelManager instance;
     public LevelState currentState;
-    public Coroutine swapState;
+    public float secondsRemaining = 10.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -22,16 +22,17 @@ public class LevelManager : MonoBehaviour
             currentState = LevelState.OBSERVING;
         }
 
-        if (swapState == null)
+        secondsRemaining -= Time.deltaTime;
+
+        if (secondsRemaining <= 0)
         {
-            swapState = StartCoroutine(SwitchPhase());
+            secondsRemaining = 10.0f;
+            SwitchPhase();
         }
     }
 
-    private IEnumerator SwitchPhase()
+    private void SwitchPhase()
     {
-        yield return new WaitForSeconds(5.0f);
-
         if (currentState == LevelState.INITIAL || currentState == LevelState.OBSERVING)
         {
             currentState = LevelState.PLANNING;
@@ -44,8 +45,6 @@ public class LevelManager : MonoBehaviour
         {
             currentState = LevelState.OBSERVING;
         }
-
-        swapState = null;
     }
 }
 
