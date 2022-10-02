@@ -126,7 +126,7 @@ public class PlayerMoveState : IState
         }
     }
 
-     private void DetermineAnimation(Vector3 current, Vector3 target)
+    private void DetermineAnimation(Vector3 current, Vector3 target)
     {
         if (current.x != target.x)
         {
@@ -218,6 +218,9 @@ public class PlayerMoveState : IState
 
     public void OnTriggerEnter2D(Collider2D collider)
     {
-       
+        if (collider.tag == "Enemy")
+        {
+            player.KillPlayer();
+        }
     }
 }

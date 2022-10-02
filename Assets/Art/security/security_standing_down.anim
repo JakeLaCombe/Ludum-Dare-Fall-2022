@@ -7,7 +7,7 @@ AnimationClip:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: security_standing_down
-  serializedVersion: 6
+  serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
   m_UseHighQualityCurve: 1
@@ -41,6 +41,7 @@ AnimationClip:
       typeID: 212
       customType: 23
       isPPtrCurve: 1
+      isIntCurve: 0
     pptrCurveMapping:
     - {fileID: 3176915133629071797, guid: 15aa9d519d2c59145aebd155437ae0d8, type: 3}
     - {fileID: 3176915133629071797, guid: 15aa9d519d2c59145aebd155437ae0d8, type: 3}

@@ -32,7 +32,6 @@ public class PathBuilding : MonoBehaviour
     {
         if (LevelManager.instance.currentState == LevelState.PLANNING)
         {
-            Debug.Log("Planning");
             PlayerInput();
         }
 
@@ -54,7 +53,7 @@ public class PathBuilding : MonoBehaviour
     {
         bool updateTiles = true;
         Vector3Int nextLocation = new Vector3Int(currentLocation.x, currentLocation.y, currentLocation.z);
-        
+
         if (playerInput.Left())
         {
             nextLocation.x -= 1;
@@ -77,7 +76,7 @@ public class PathBuilding : MonoBehaviour
         }
 
         if (updateTiles && possiblePath.GetTile(nextLocation) != null && playerPath.GetTile(nextLocation) != basePathTile)
-        {         
+        {
             currentLocation = nextLocation;
             newPlayerPath.Add(new AStarNode(false, nextLocation.x, nextLocation.y));
             playerPath.SetTile(currentLocation, basePathTile);

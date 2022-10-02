@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
 {
     public StateMachine stateMachine;
     public PlayerMoveState playerMoveState;
+    public PlayerDeadState playerDeadState;
 
     public Rigidbody2D rigidBody;
     public Animator animator;
@@ -24,7 +25,7 @@ public class Player : MonoBehaviour
         stateMachine = new StateMachine();
         playerMoveState = new PlayerMoveState(this);
         stateMachine.ChangeState(playerMoveState);
-
+        playerDeadState = new PlayerDeadState(this);
     }
 
     // Update is called once per frame
@@ -45,7 +46,13 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        Debug.Log("Collided");
         stateMachine.currentState.OnTriggerEnter2D(other);
+    }
+
+    public void KillPlayer()
+    {
+        stateMachine.ChangeState(playerDeadState);
     }
 
 }
