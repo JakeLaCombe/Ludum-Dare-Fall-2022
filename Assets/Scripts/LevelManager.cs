@@ -10,7 +10,7 @@ public class LevelManager : MonoBehaviour
     public AudioSource BackgroundMusic;
     public float secondsRemaining = 10.0f;
     public int currentLevel = 0;
-    private string[] LEVELS = { "LevelOne", "LevelTwo", "LevelThree", "LevelFour", "LevelFive" };
+    private string[] LEVELS = { "LevelOne", "LevelTwo", "LevelThree", "LevelFour", "LevelFive", "LevelSix" };
 
     // Start is called before the first frame update
     void Start()
