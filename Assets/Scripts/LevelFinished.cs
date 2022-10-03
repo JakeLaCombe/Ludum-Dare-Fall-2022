@@ -22,6 +22,7 @@ public class LevelFinished : MonoBehaviour
         {
             Destroy(other.gameObject);
             Destroy(this.gameObject);
+            SoundManager.instance.VICTORY.Play();
             LevelManager.instance.NextLevel();
         }
     }

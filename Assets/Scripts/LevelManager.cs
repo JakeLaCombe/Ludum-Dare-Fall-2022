@@ -7,6 +7,7 @@ public class LevelManager : MonoBehaviour
 {
     public static LevelManager instance;
     public LevelState currentState;
+    public AudioSource BackgroundMusic;
     public float secondsRemaining = 10.0f;
     public int currentLevel = 0;
     private string[] LEVELS = { "LevelOne", "LevelTwo" };
@@ -61,11 +62,13 @@ public class LevelManager : MonoBehaviour
 
     public void RestartLevel()
     {
+        BackgroundMusic.Stop();
         StartCoroutine(LevelCoroutine(SceneManager.GetActiveScene().name));
     }
 
     public void NextLevel()
     {
+        BackgroundMusic.Stop();
         currentLevel += 1;
 
         if (currentLevel == LEVELS.Length)

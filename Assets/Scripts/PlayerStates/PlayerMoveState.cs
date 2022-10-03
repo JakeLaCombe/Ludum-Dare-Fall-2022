@@ -64,24 +64,20 @@ public class PlayerMoveState : IState
     }
     public void Execute()
     {
-        // if (currentPatrolType != PatrolTypes.STANDING)
-        // {
         AddPlayerDecorations();
         TravelPath();
         CheckFloor();
-
-        //  }
     }
 
     private void CheckFloor()
     {
         Vector3 tileCheck = player.transform.position;
-        
+
         if (animator.GetBool("isFacingUp"))
         {
             tileCheck.y -= 0.5f;
         }
-        else if(animator.GetBool("isFacingDown"))
+        else if (animator.GetBool("isFacingDown"))
         {
             tileCheck.y += 0.5f;
         }
@@ -97,10 +93,12 @@ public class PlayerMoveState : IState
             if (player.pickups.Contains(PickupTypes.PLANK))
             {
                 currentFloor.SetTile(currentFloor.WorldToCell(tileCheck), PrefabsManager.instance.PLANKED_HOLE);
+                SoundManager.instance.PLANK_USE.Play();
             }
             else
             {
                 player.KillPlayer();
+                SoundManager.instance.PLAYER_HIT.Play();
             }
         }
     }
@@ -272,10 +270,12 @@ public class PlayerMoveState : IState
         {
             player.pickups.Remove(PickupTypes.FORCE_FIELD);
             GameObject.Destroy(enemy);
+            SoundManager.instance.ENEMY_HIT.Play();
         }
         else
         {
             player.KillPlayer();
+            SoundManager.instance.PLAYER_HIT.Play();
         }
     }
 }

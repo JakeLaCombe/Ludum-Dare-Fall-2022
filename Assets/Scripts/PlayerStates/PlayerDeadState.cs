@@ -30,9 +30,9 @@ public class PlayerDeadState : IState
 
     public IEnumerator KillPlayer()
     {
+        LevelManager.instance.RestartLevel();
         yield return new WaitForSeconds(1.0f);
         GameObject.Destroy(player.gameObject);
-        LevelManager.instance.RestartLevel();
     }
 
     public void Exit()

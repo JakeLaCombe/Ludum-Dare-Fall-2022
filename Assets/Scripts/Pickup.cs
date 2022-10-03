@@ -20,8 +20,10 @@ public class Pickup : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-         if (other.tag == "Player")
+        if (other.tag == "Player")
         {
+            SoundManager.instance.PICKUP.Play();
+
             Player player = other.gameObject.GetComponent<Player>();
             player.AddPickup(pickupType);
             Destroy(this.gameObject);
