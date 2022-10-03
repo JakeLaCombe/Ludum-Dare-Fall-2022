@@ -56,6 +56,11 @@ public class PathBuilding : MonoBehaviour
 
     public void PlayerInput()
     {
+        if (Time.timeScale == 0.0f)
+        {
+            return;
+        }
+
         bool updateTiles = true;
         Vector3Int nextLocation = new Vector3Int(currentLocation.x, currentLocation.y, currentLocation.z);
 
