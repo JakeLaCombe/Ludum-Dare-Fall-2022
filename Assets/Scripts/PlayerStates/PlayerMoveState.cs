@@ -212,6 +212,8 @@ public class PlayerMoveState : IState
         {
             Vector3 nextPosition = levelPath.GetWorldCoordinates(newPath[0]);
             nextPosition.z = player.transform.position.z;
+            nextPosition.x += 0.5f;
+            nextPosition.y += 0.5f;
             player.transform.position = nextPosition;
         }
 
