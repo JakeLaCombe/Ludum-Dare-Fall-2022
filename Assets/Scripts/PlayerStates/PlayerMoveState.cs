@@ -93,6 +93,7 @@ public class PlayerMoveState : IState
             if (player.pickups.Contains(PickupTypes.PLANK))
             {
                 currentFloor.SetTile(currentFloor.WorldToCell(tileCheck), PrefabsManager.instance.PLANKED_HOLE);
+                player.pickups.Remove(PickupTypes.PLANK);
                 SoundManager.instance.PLANK_USE.Play();
             }
             else
