@@ -14,6 +14,7 @@ public class PlayerMoveState : IState
     GameObject level;
     private Vector3 originalPosition;
     private Coroutine delayedMovement;
+    private Tilemap currentFloor;
 
     private float speed = 1.0f;
 
@@ -50,6 +51,8 @@ public class PlayerMoveState : IState
         levelPath = level.GetComponentInChildren<PathFinding>();
         animator = player.GetComponent<Animator>();
         spriteRenderer = player.GetComponent<SpriteRenderer>();
+
+        currentFloor = level.transform.Find("Floor").GetComponent<Tilemap>();
     }
     public void Enter()
     {
@@ -65,7 +68,41 @@ public class PlayerMoveState : IState
         // {
         AddPlayerDecorations();
         TravelPath();
+        CheckFloor();
+
         //  }
+    }
+
+    private void CheckFloor()
+    {
+        Vector3 tileCheck = player.transform.position;
+        
+        if (animator.GetBool("isFacingUp"))
+        {
+            tileCheck.y -= 0.5f;
+        }
+        else if(animator.GetBool("isFacingDown"))
+        {
+            tileCheck.y += 0.5f;
+        }
+        else
+        {
+            tileCheck.x -= 0.5f * player.transform.localScale.x;
+        }
+
+        TileBase currentTile = currentFloor.GetTile(currentFloor.WorldToCell(tileCheck));
+
+        if (currentTile.name == "Hole")
+        {
+            if (player.pickups.Contains(PickupTypes.PLANK))
+            {
+                currentFloor.SetTile(currentFloor.WorldToCell(tileCheck), PrefabsManager.instance.PLANKED_HOLE);
+            }
+            else
+            {
+                player.KillPlayer();
+            }
+        }
     }
 
     private void AddPlayerDecorations()

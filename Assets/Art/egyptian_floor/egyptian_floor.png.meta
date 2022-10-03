@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 3e2027831da38b448a750ca36e1b039d
+guid: 9ae1db24f1e00c44285910e60f509027
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -113,29 +113,17 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Windows Store Apps
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: path_cursor0
+      name: egyptian_floor0
       rect:
         serializedVersion: 2
         x: 1
         y: 1
-        width: 32
-        height: 32
+        width: 96
+        height: 64
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -143,8 +131,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e45c49c1868091530800000000000000
-      internalID: 3826098601677079886
+      spriteID: 2fce43e21e14e5710800000000000000
+      internalID: 1683855746081811698
       vertices: []
       indices: 
       edges: []
@@ -160,7 +148,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      path_cursor0: 3826098601677079886
+      egyptian_floor0: 1683855746081811698
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
