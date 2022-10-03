@@ -8,11 +8,11 @@ public class Player : MonoBehaviour
     public StateMachine stateMachine;
     public PlayerMoveState playerMoveState;
     public PlayerDeadState playerDeadState;
-
     public Rigidbody2D rigidBody;
     public Animator animator;
     public IInputable input;
     public SpriteRenderer spriteRenderer;
+    public List<PickupTypes> pickups;
 
     // Start is called before the first frame update
     void Start()
@@ -26,6 +26,8 @@ public class Player : MonoBehaviour
         playerMoveState = new PlayerMoveState(this);
         stateMachine.ChangeState(playerMoveState);
         playerDeadState = new PlayerDeadState(this);
+
+        pickups = new List<PickupTypes>();
     }
 
     // Update is called once per frame
@@ -46,13 +48,17 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Collided");
         stateMachine.currentState.OnTriggerEnter2D(other);
     }
 
     public void KillPlayer()
     {
         stateMachine.ChangeState(playerDeadState);
+    }
+
+    public void AddPickup(PickupTypes pickup)
+    {
+        pickups.Add(pickup);
     }
 
 }

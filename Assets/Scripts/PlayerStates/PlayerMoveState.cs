@@ -10,6 +10,7 @@ public class PlayerMoveState : IState
     List<AStarNode> travelingPath;
     PathFinding levelPath;
     public Animator animator;
+    public SpriteRenderer spriteRenderer;
     GameObject level;
     private Vector3 originalPosition;
     private Coroutine delayedMovement;
@@ -48,6 +49,7 @@ public class PlayerMoveState : IState
         travelingPath = new List<AStarNode>();
         levelPath = level.GetComponentInChildren<PathFinding>();
         animator = player.GetComponent<Animator>();
+        spriteRenderer = player.GetComponent<SpriteRenderer>();
     }
     public void Enter()
     {
@@ -61,8 +63,23 @@ public class PlayerMoveState : IState
     {
         // if (currentPatrolType != PatrolTypes.STANDING)
         // {
+        AddPlayerDecorations();
         TravelPath();
         //  }
+    }
+
+    private void AddPlayerDecorations()
+    {
+        bool hasForceField = player.pickups.Contains(PickupTypes.FORCE_FIELD);
+
+        if (hasForceField)
+        {
+            spriteRenderer.color = new Color(0.0f, 1.0f, 0.0f);
+        }
+        else
+        {
+            spriteRenderer.color = new Color(1.0f, 1.0f, 1.0f);
+        }
     }
 
     private void GeneratePath(Vector3 destination)
@@ -207,6 +224,19 @@ public class PlayerMoveState : IState
     public void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.tag == "Enemy")
+        {
+            processEnemyHit(collider.gameObject);
+        }
+    }
+
+    private void processEnemyHit(GameObject enemy)
+    {
+        if (player.pickups.Contains(PickupTypes.FORCE_FIELD))
+        {
+            player.pickups.Remove(PickupTypes.FORCE_FIELD);
+            GameObject.Destroy(enemy);
+        }
+        else
         {
             player.KillPlayer();
         }
