@@ -86,6 +86,11 @@ public class PathBuilding : MonoBehaviour
             newPlayerPath.Add(new AStarNode(false, nextLocation.x, nextLocation.y));
             playerPath.SetTile(currentLocation, basePathTile);
         }
+
+        if (playerInput.StartButton())
+        {
+            LevelManager.instance.FastforwardTime();
+        }
     }
 
     public void TransferPathToPlayer()
