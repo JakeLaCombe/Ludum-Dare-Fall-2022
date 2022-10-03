@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: HoleCovered
+  m_Name: egyptian_floor_4
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: -7475399096105222266, guid: 43dbc301b41523b458430f775c3c3c35, type: 3}
+  m_Sprite: {fileID: -673609927, guid: 5dd218318ae910d429cf3d8aaa6e34b3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
